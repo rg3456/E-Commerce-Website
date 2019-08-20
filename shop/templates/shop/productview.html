@@ -1,0 +1,52 @@
+{% extends 'shop/basic.html' %}
+{% block title %} {{product.product_name}} {% endblock %}
+{% block body %} 
+<div class="container my-4">
+	<div class="row">
+	<div class="col-md-4">
+	<div class="row">
+     <!--{{product.image}}-->
+     <img src="/media/{{product.image}}"/>
+	</div>
+	<div class="row">
+		<button class="btn btn-primary mx-2">Buy Now</button>
+		<button class="btn btn-primary mx-2">Add To Cart</button></div>
+</div>
+<div class="col-md-8">
+	<h5>{{product.product_name}}</h5>
+	<p><b>MRP Rs.{{product.price}}</b></p>
+	<p>{{product.desc}}</p>
+	</div>
+</div>
+</div>{% endblock %}
+{% block js %}<script type="text/javascript">
+console.log('working')
+      if(localStorage.getItem('cart12')==null){
+        var cart={};     }
+      else{
+        cart=JSON.parse(localStorage.getItem('cart12'));
+
+
+      }
+      console.log(cart)
+        $('.cart12').click(function(){
+        console.log('clicked');
+        var idstr=this.id.toString();
+        console.log(idstr);
+        if(cart[idstr]!=undefined){
+          cart[idstr]=cart[idstr]+1;
+        }
+        else{
+          cart[idstr]=1;
+        }
+        console.log(cart)
+        localStorage.setItem('cart12',JSON.stringify(cart));
+        document.getElementById('cart1').innerHTML=Object.keys(cart).length;
+        var a=document.getElementById('cart1').innerHTML;
+        console.log(a);
+      });
+        $('#pop').popover('show');
+        document.getElementById('pop').setAttribute('data-content','<h5>Cart</h5>');
+    </script>
+{% endblock %}
+
